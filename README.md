@@ -20,9 +20,9 @@ npm run build
 
 ## Mock Deployment
 
-In the real would you would copy the contents of .output to your server. In the app directory of your server there is no node_modules folder, so remove it here locally to behave the same.
+Copy now the .output folder somewhere else (eg.: Desktop)
 
-After removing your node_modules folder start the prod server
+now start the prod server (adjust the path to your needs)
 
 node .output/server/index.mjs
 
