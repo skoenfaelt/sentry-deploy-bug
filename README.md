@@ -1,6 +1,6 @@
-# Nuxt Minimal Starter
+# Sentry Deploy Bug
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+> https://github.com/getsentry/sentry-javascript/issues/16243
 
 ## Setup
 
@@ -9,67 +9,43 @@ Make sure to install dependencies:
 ```bash
 # npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
+## Build
 
 ```bash
 # npm
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
+## Mock Deployment
 
-```bash
-# npm
-npm run preview
+In the real would you would copy the contents of .output to your server. In the app directory of your server there is no node_modules folder, so remove it here locally to behave the same.
 
-# pnpm
-pnpm preview
+After removing your node_modules folder start the prod server
 
-# yarn
-yarn preview
+node .output/server/index.mjs
 
-# bun
-bun run preview
-```
+Now open the localhost:3000
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+This page should not open. On my IIS I have the iis-handler, which creates logs. This is what it shows
+
+
+node:internal/modules/esm/resolve:215
+  const resolvedOption = FSLegacyMainResolve(packageJsonUrlString, packageConfig.main, baseStringified);
+                         ^
+
+Error: Cannot find package 'app_folder\server\node_modules\@sentry\node\node_modules\@opentelemetry\semantic-conventions\index.js' imported from app_folder\server\node_modules\@sentry\node\build\esm\integrations\tracing\koa.js
+    at legacyMainResolve (node:internal/modules/esm/resolve:215:26)
+    at packageResolve (node:internal/modules/esm/resolve:841:14)
+    at moduleResolve (node:internal/modules/esm/resolve:927:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1169:11)
+    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:542:12)
+    at ModuleLoader.resolve (node:internal/modules/esm/loader:510:25)
+    at ModuleLoader.getModuleJob (node:internal/modules/esm/loader:239:38)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/module_job:96:40)
+    at link (node:internal/modules/esm/module_job:95:36) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v20.18.0
